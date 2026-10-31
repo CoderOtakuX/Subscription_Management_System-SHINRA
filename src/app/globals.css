@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.ts";
+
+/* ── Base Layer ── */
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 100vw;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  *:focus-visible {
+    outline: 2px solid #714b67;
+    outline-offset: 2px;
+  }
+
+  body {
+    @apply bg-section-bg font-sans text-body-md text-on-surface;
+    overscroll-behavior: none;
+  }
+
+  /* Prevent iOS zoom on input focus by ensuring 16px minimum */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  @media (min-width: 768px) {
+    input,
+    select,
+    textarea {
+      font-size: 14px;
+    }
+  }
+
+  /* Hide scrollbars but keep scrolling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ── Utility Layer ── */
+@layer utilities {
+  /* Touch target minimum 44px */
+  .touch-target {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Focus ring matching design system */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-1 focus:ring-primary-container;
+    box-shadow: 0 0 0 3px rgba(113, 75, 103, 0.15);
+  }
+
+  /* Skeleton shimmer for loading states */
+  .skeleton {
+    @apply bg-gradient-to-r from-surface-container via-surface-container-high to-surface-container;
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Caveat handwritten annotation styling */
+  .annotation {
+    @apply font-script text-caption-script;
+  }
+
+  /* Card elevation shorthand */
+  .card {
+    @apply bg-canvas-white rounded-lg border border-border-subtle shadow-level-1;
+  }
+
+  .card-hover {
+    @apply bg-canvas-white rounded-lg border border-border-subtle shadow-level-1 hover:shadow-level-2 transition-shadow;
+  }
+}
+
+/* ── Print Styles for A4 Invoice Detail ── */
+@media print {
+  aside,
+  nav,
+  header,
+  button,
+  .no-print,
+  #portal-nav,
+  #sidebar,
+  [data-testid="no-print"] {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 15mm;
+  }
+
+  .print-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  table {
+    page-break-inside: avoid;
+    width: 100% !important;
+  }
+
+  tr, td, th {
+    page-break-inside: avoid;
+  }
+}
